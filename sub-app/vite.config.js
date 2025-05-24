@@ -1,11 +1,16 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import path from 'path'
 
 export default defineConfig({
   plugins: [vue()],
-  base: './', // 重要：确保资源路径正确
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
   server: {
-    port: 7101, // 确保端口不冲突
+    port: 7700,
     cors: true,
     headers: {
       'Access-Control-Allow-Origin': '*',
@@ -14,6 +19,12 @@ export default defineConfig({
   build: {
     target: 'esnext',
     outDir: 'dist',
-    assetsDir: 'static',
+    assetsDir: '',
+    lib: {
+      entry: path.resolve(__dirname, 'src/main.js'), // Vue 应用入口
+      name: 'VueSubApp',
+      formats: ['umd'], // 👈 使用 UMD 格式
+      fileName: () => 'vue-sub-app.js',
+    },
   },
 })
