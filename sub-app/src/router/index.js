@@ -1,13 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import App from '../App.vue'
+import { qiankunWindow } from 'vite-plugin-qiankun'
+import Home from '../views/Home.vue' // 👈 这里现在就有了
 
 const router = createRouter({
-  history: createWebHistory(window.__POWERED_BY_QIANKUN__ ? '/sub/' : '/'),
+  history: createWebHistory(qiankunWindow.__POWERED_BY_QIANKUN__ ? '/vue/' : '/'),
   routes: [
     {
       path: '/',
-      name: 'App',
-      component: App,
+      name: 'Home',
+      component: Home,
     },
   ],
 })
